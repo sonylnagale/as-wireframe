@@ -7,13 +7,16 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Grid,
   Typography,
   Button,
   Link as MuiLink,
 } from "@mui/material";
 import Shell from "../components/Shell";
 import AssetSparkline from "../components/AssetSparkline";
+import MarketSummary from "../components/MarketSummary";
+import MarketHeatmap from "../components/MarketHeatmap";
+import TopGainersLosers from "../components/TopGainersLosers";
+import RecentAlerts from "../components/RecentAlerts";
 
 const assets = [
   {
@@ -78,8 +81,9 @@ function DashboardPage() {
           </Typography>
         </Box>
 
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={9}>
+        <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "3fr 1fr" }, gap: 2 }}>
+          <Box>
+            <MarketSummary />
             <Paper sx={{ overflow: "auto", border: "1px solid #d0d0d0" }}>
               <Table size="small">
                 <TableHead sx={{ backgroundColor: "#f0f0f0" }}>
@@ -115,7 +119,6 @@ function DashboardPage() {
                         <MuiLink
                           component={Link}
                           to={`/detailed-view?symbol=${asset.symbol}`}
-                          underline="hover"
                           sx={{ color: "#333333", fontWeight: 600 }}
                         >
                           {asset.symbol}
@@ -150,9 +153,11 @@ function DashboardPage() {
                 </TableBody>
               </Table>
             </Paper>
-          </Grid>
 
-          <Grid item xs={12} md={3}>
+            <MarketHeatmap />
+          </Box>
+
+          <Box>
             <Paper
               sx={{
                 p: 2,
@@ -202,8 +207,11 @@ function DashboardPage() {
                 </Box>
               </Box>
             </Paper>
-          </Grid>
-        </Grid>
+
+            <TopGainersLosers />
+            <RecentAlerts />
+          </Box>
+        </Box>
       </Box>
     </Shell>
   );

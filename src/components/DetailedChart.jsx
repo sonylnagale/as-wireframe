@@ -108,8 +108,10 @@ function DetailedChart({ symbol, onFullscreen, fullscreen, showAnnotations }) {
         alignItems: "center",
         backgroundColor: "#ffffff",
         border: fullscreen ? "none" : "1px solid #e0e0e0",
-        width: fullscreen ? "100vw" : "auto",
-        height: fullscreen ? "100vh" : "auto",
+        width: fullscreen ? "100%" : "auto",
+        // Reserve space for the fullscreen header (dialog title/controls)
+        mt: fullscreen ? "56px" : 0,
+        height: fullscreen ? "calc(100% - 56px)" : "auto",
         borderRadius: fullscreen ? 0 : "4px",
         overflow: "hidden",
       }}
@@ -119,9 +121,9 @@ function DetailedChart({ symbol, onFullscreen, fullscreen, showAnnotations }) {
           onClick={onFullscreen}
           size="small"
           sx={{
-            position: "absolute", top: 8, right: 8,
+            position: "absolute", bottom: 8, left: 8,
             backgroundColor: "#333333", color: "#ffffff",
-            "&:hover": { backgroundColor: "#555555" }, zIndex: 1,
+            "&:hover": { backgroundColor: "#555555" }, zIndex: 2,
           }}
           aria-label="Fullscreen"
         >
@@ -214,6 +216,38 @@ function DetailedChart({ symbol, onFullscreen, fullscreen, showAnnotations }) {
               fill={color} opacity="0.75" />
           );
         })}
+
+        {/* Cycle arcs and cycle markers (grayscale semicircles) */}
+        {(() => {
+          const cycleCount = 4;
+          const usableWidth = W - leftPad - rightPad;
+          const cycleWidth = usableWidth / cycleCount;
+          const cycleCy = H - (fullscreen ? 18 : 14);
+          const arcs = Array.from({ length: cycleCount }, (_, ci) => {
+            const cx = leftPad + cycleWidth * (ci + 0.5);
+            const r = cycleWidth * 0.5;
+            const innerR = r * 0.45;
+            return { cx, r, innerR };
+          });
+          return (
+            <g>
+              {/* vertical cycle boundaries (skip outer edges) */}
+              {Array.from({ length: cycleCount + 1 }, (_, vi) => {
+                if (vi === 0 || vi === cycleCount) return null;
+                const x = leftPad + cycleWidth * vi;
+                return <line key={`vline-${vi}`} x1={x} y1={topPad} x2={x} y2={H - 8} stroke="#bdbdbd" strokeWidth="1" strokeDasharray="4 6" opacity="0.6" />;
+              })}
+
+              {/* arcs */}
+              {arcs.map((c, i) => (
+                <g key={`cycle-${i}`} opacity="0.95">
+                  <path d={`M ${c.cx - c.r},${cycleCy} A ${c.r},${c.r} 0 0 1 ${c.cx + c.r},${cycleCy}`} stroke="#444444" strokeWidth={fullscreen ? 3 : 2} fill="none" />
+                  <path d={`M ${c.cx - c.innerR},${cycleCy} A ${c.innerR},${c.innerR} 0 0 1 ${c.cx + c.innerR},${cycleCy}`} stroke="#bdbdbd" strokeWidth={fullscreen ? 2 : 1} fill="none" />
+                </g>
+              ))}
+            </g>
+          );
+        })()}
 
         {/* Annotations overlay */}
         {showAnnotations && (() => {

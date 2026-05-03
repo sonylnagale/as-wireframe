@@ -1,14 +1,15 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
 import DashboardPage from "./pages/DashboardPage";
+import LandingPage from "./pages/LandingPage";
 import DetailedViewPage from "./pages/DetailedViewPage";
 import PlaceholderPage from "./pages/PlaceholderPage";
 
 function App() {
   return (
-    <Box sx={{ width: "80%", maxWidth: "1360px", margin: "0 auto", padding: "12px" }}>
+    <Box>
       <Routes>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/detailed-view" element={<DetailedViewPage />} />
         <Route path="/market-conditions" element={<PlaceholderPage title="Market Conditions" body="This page is included to make the top navigation clickable." />} />

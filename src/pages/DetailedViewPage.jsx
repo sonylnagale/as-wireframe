@@ -1,14 +1,6 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
-import {
-  Box,
-  Paper,
-  Grid,
-  Button,
-  Typography,
-  Dialog,
-  IconButton,
-} from "@mui/material";
+import { useSearchParams } from "react-router-dom";
+import { Box, Paper, Typography, Dialog, IconButton } from "@mui/material";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import Shell from "../components/Shell";
 import DetailedChart from "../components/DetailedChart";
@@ -47,11 +39,13 @@ function DetailedViewPage() {
         open={fullscreen}
         onClose={() => setFullscreen(false)}
         fullScreen
-        PaperProps={{
-          sx: {
-            backgroundColor: "#f5f5f5",
-            display: "flex",
-            flexDirection: "row",
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "#f5f5f5",
+              display: "flex",
+              flexDirection: "row",
+            },
           },
         }}
       >
@@ -119,8 +113,8 @@ function DetailedViewPage() {
           showAnnotations={showAnnotations}
         />
 
-        <Grid container spacing={2}>
-          <Grid>
+        <Box sx={{ display: "grid", gap: 2 }}>
+          <Box>
             <Paper sx={{ p: 2, border: "1px solid #d0d0d0" }}>
               <Typography
                 variant="subtitle2"
@@ -132,10 +126,8 @@ function DetailedViewPage() {
                 {placeholderText}
               </Typography>
             </Paper>
-          </Grid>
-
-          
-        </Grid>
+          </Box>
+        </Box>
       </Box>
     </Shell>
   );
