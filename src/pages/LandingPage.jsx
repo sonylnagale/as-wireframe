@@ -16,7 +16,7 @@ function LandingPage() {
     >
       <Box sx={{ mb: 4, textAlign: "center" }}>
         <Typography variant="h3" sx={{ fontWeight: 700, color: "#333333" }}>
-          askSlim
+          aS Platform
         </Typography>
       </Box>
 
