@@ -1,0 +1,17 @@
+.chartContainer {
+  width: 100%;
+  background: #0f172a;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart {
+  width: 100%;
+  max-width: 650px;
+  height: 320px;
+}

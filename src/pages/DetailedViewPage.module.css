@@ -1,0 +1,62 @@
+.container {
+  padding: 16px;
+  margin-right: 0;
+}
+
+.header {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.infoPanel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.infoPanelSection {
+  padding: 12px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.infoPanelSection b {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.infoPanelSection p {
+  margin: 0;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.actionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.actionsList a {
+  display: inline-block;
+  padding: 6px 10px;
+  background: #0a2a7a;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 13px;
+  transition: background 0.2s ease;
+  border: 1px solid #0a2a7a;
+}
+
+.actionsList a:hover {
+  background: #1e40af;
+  border-color: #1e40af;
+}
